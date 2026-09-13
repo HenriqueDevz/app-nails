@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Financeiro - Gestão Nails</title>
+        <link rel="stylesheet" href="/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body class="app-page">
+        
+        <header class="app-header">
+            <h1 class="app-title">💅 Gestão Nails</h1>
+            <nav class="app-nav">
+                <a href="/finances.html" class="nav-link active">Financeiro</a>
+                <a href="/storage.html" class="nav-link">Estoque</a>
+            </nav>
+            <button class="btn-logout" id="logoutBtn">Sair</button>
+        </header>
+
+        <main class="app-main">
+            <section class="summary-cards">
+                <div class="summary-card">
+                    <span class="summary-label">Total do Mês</span>
+                    <span class="summary-value" id="totalMonth">R$ 0,00</span>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Quinzenal Atual</span>
+                    <span class="summary-value" id="totalFortnight">R$ 0,00</span>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">Média por Atendimento</span>
+                    <span class="summary-value" id="avgService">R$ 0,00</span>
+                </div>
+            </section>
+
+            <section class="chart-section">
+                <h2 class="section-title">Comparativo Quinzenal</h2>
+                <canvas id="fortnightChart"></canvas>
+            </section>
+
+            <section class="form-section">
+                <h2 class="section-title">Novo Atendimento</h2>
+                <div class="card">
+                    <div class="input-group">
+                        <label for="procedure">Procedimento</label>
+                        <select id="procedure">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="price">Valor (R$)</label>
+                        <input type="number" id="price" placeholder="0,00" step="0.01"/>
+                    </div>
+                    <div class="input-group">
+                        <label for="type">Tipo</label>
+                        <select id="type">
+                            <option value="proprio">Serviço Próprio</option>
+                            <option value="comissao">Comissão Cunhada</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="date">Data</label>
+                        <input type="date" id="date"/>
+                    </div>
+                    <div class="input-group">
+                        <label for="notes">Observações</label>
+                        <input type="text" id="notes" placeholder="Ex: cliente especial"/>
+                    </div>
+                    <button class="btn-primary" id="saveBtn">Registrar Atendimento</button>
+                </div>
+            </section>
+
+            <section class="list-section">
+                <h2 class="section-title">Atendimentos</h2>
+                <div id="servicesList"></div>
+            </section>
+
+        </main>
+
+        <script src="/js/finances.js"></script>
+    </body>
+</html>

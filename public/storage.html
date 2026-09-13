@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque — Gestão Nails</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="app-page">
+
+    <header class="app-header">
+        <h1 class="app-title">💅 Gestão Nails</h1>
+        <nav class="app-nav">
+            <a href="/finances.html" class="nav-link">Financeiro</a>
+            <a href="/storage.html" class="nav-link active">Estoque</a>
+        </nav>
+        <button class="btn-logout" id="logoutBtn">Sair</button>
+    </header>
+
+    <!-- Tabs / Abas -->
+     <div class="tabs">
+        <button class="tab-btn active" data-tab="products">Produtos</button>
+        <button class="tab-btn" data-tab="procedures">Procedimentos</button>
+        <button class="tab-btn" data-tab="recipes">Receitas</button>
+     </div>
+
+    <main class="app-main">
+
+        <!-- Tab: Products / Produtos -->
+        <section class="tab-content active" id="tab-products">
+            
+            <div class="tab-header">
+                <h2 class="section-title">Produtos em Estoque</h2>
+                <button class="btn-add" id="openProductModalBtn">+ Novo Produto</button>
+            </div>
+
+            <div id="productsList"></div>
+        </section>
+
+        <!-- Tab: Procedures / Procedimentos -->
+        <section class="tab-content" id="tab-procedures">
+
+            <div class="tab-header">
+                <h2 class="section-title">Procedimentos</h2>
+                <button class="btn-add" id="openProcedureModalBtn">+ Novo Procedimento</button>
+            </div>
+
+            <div id="proceduresList"></div>
+        </section>
+
+        <!-- Tab: Recipes / Receitas -->
+         <section class="tab-content" id="tab-recipes">
+
+            <div class="tab-header">
+                <h2 class="section-title">Receitas</h2>
+            </div>
+
+            <div class="card">
+                <div class="input-group">
+                    <label for="recipeProcedure">Selecione o Procedimento</label>
+                    <select id="recipeProcedure">
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
+
+                <div id="recipesList"></div>
+
+                <div class="input-group" style="margin-top: 16px;">
+                    <label for="recipeProduct">Adicionar Produto à Receita</label>
+                    <select id="recipeProduct">
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
+                <button class="btn-primary" id="saveRecipeBtn">Adicionar</button>
+            </div>
+         </section>
+        
+    </main>
+        <!-- Modal: New Product / Novo Produto -->
+        <div class="modal-overlay" id="productModal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h2 class="section-title">Novo Produto</h2>
+                    <button class="modal-close" id="closeProductModalBtn">X</button>
+                </div>
+                <div class="input-group">
+                    <label for="productName">Nome do Produto</label>
+                    <input type="text" id="productName" placeholder="Ex: Gel Uv"/>
+                </div>
+                <div class="input-group">
+                    <label for="productQty">Quantidade em Estoque</label>
+                    <input type="number" id="productQty" placeholder="Ex:3"/>
+                </div>
+                <div class="input-group">
+                    <label for="productMin">Quantidade Mínima</label>
+                    <input type="number" id="productMin" placeholder="Ex:0"/>
+                </div>
+                <div class="input-group">
+                    <label for="productUnit">Unidade</label>
+                    <select id="productUnit">
+                        <option value="unidade">Unidade</option>
+                        <option value="ml">mL</option>
+                        <option value="g">g</option>
+                        <option value="frasco">frasco</option>
+                        <option value="pacote">Pacote</option>
+                    </select>
+                </div>
+                <button class="btn-primary" id="saveProductBtn">Adicionar Produto</button>
+            </div>
+        </div>
+
+        <!-- Modal: New Procedure / Novo Procedimento -->
+        <div class="modal-overlay" id="procedureModal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h2 class="section-title">Novo Procedimento</h2>
+                    <button class="modal-close" id="closeProcedureModalBtn">X</button>
+                </div>
+                <div class="input-group">
+                    <label for="procedureName">Nome do Procedimento</label>
+                    <input type="text" id="procedureName" placeholder="Ex: Gel com Molde F1"/>
+                </div>
+                <button class="btn-primary" id="saveProcedureBtn">Adicionar Procedimento</button>
+            </div>
+        </div>
+        
+    <script src="/js/storage.js"></script>
+</body>
+</html>
