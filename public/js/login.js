@@ -1,7 +1,29 @@
 const  usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const loginBtn = document.getElementById('loginBtn');
-const forgotBtn = document.getElementById('forgotBtn');
+const registerBtn = document.getElementById('registerBtn');
+
+registerBtn.addEventListener('click', () =>{
+    const username = prompt('Digite o nome de usuário:');
+    if(!username) return;
+    
+    const password = prompt('Digite a senha:');
+    if(!password) return;
+
+    fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    })
+    .then (r => r.json())
+    .then(data => {
+        if(data.success) {
+            alert('Conta criada com sucesso!');
+        } else {
+            alert('Erro ao criar conta!');
+        }
+    });
+});
 
 loginBtn.addEventListener('click', async () => {
     const username = usernameInput.value.trim();
@@ -31,6 +53,8 @@ loginBtn.addEventListener('click', async () => {
     }
 });
 
-forgotBtn.addEventListener('click', () => {
-    alert('Entre em contato com administrador para redefinir sua senha!');
-});
+document.addEventListener('keydown', (e) =>{
+    if (e.key === 'Enter') {
+        loginBtn.click ();
+    }
+})
