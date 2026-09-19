@@ -1,8 +1,10 @@
- const CACHE_NAME = 'nails-v3';
+ const CACHE_NAME = 'nails-v4';
  const FILES = [
     '/',
     '/login.html',
     '/js/login.js',
+    '/register.html',
+    '/js/register.js',
     '/finances.html',
     '/js/finances.js',
     '/storage.html', 
