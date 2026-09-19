@@ -7,7 +7,9 @@ const { initDB } = require('./db');
 
 app.use(express.json());
 app.use(cookieParser());
+app.set('trust proxy', 1);
 app.use(express.static(path.join(__dirname, 'public' )));
+
 
 const authRoutes = require('./routes/auth');
 const financesRoutes = require('./routes/finances');
