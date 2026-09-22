@@ -41,7 +41,7 @@ router.delete('/procedures/:id', verifyToken, async (req, res) => {
 
 // PRODUCTS - PRODUTOS ----->
 router.post('/products', verifyToken, async (req, res) => {
-    const { name, quantity , min_quantity , unit ,capacity } = req.body;
+    const { name, quantity , min_quantity , unit , capacity } = req.body;
     try {
         await db.execute({
             sql: 'INSERT INTO products (name , quantity, min_quantity, unit, capacity) VALUES (?, ?, ?, ?, ?)',
