@@ -66,9 +66,14 @@ router.delete('/products/:id', verifyToken, async (req, res) => {
     const { id } = req.params;
     try {
         await db.execute({
-            sql: 'DELETE FROM products WHERE id = ?',
+            sql: 'DELETE FROM procedure_products WHERE product_id = ?',
             args:[id]
         });
+        await db.execute({
+            sql: 'DELETE FROM products WHERE id =?',
+            args: [id]
+        });
+        
         res.json({ success: true, message: 'Product deleted successfully' });
     } catch(error){
         res.status(500).json({ success: false, message: 'Error deleting product' });
