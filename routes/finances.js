@@ -4,11 +4,11 @@ const { db } = require('../db');
 const verifyToken = require('../middleware/auth');
 
 router.post('/', verifyToken, async (req, res) => {
-    const { procedure_id, price, type, date, notes } = req.body;
+    const { procedure_id, price, type, date, notes, client_name } = req.body;
     try {
         await db.execute({
-            sql: 'INSERT INTO finances (procedure_id, price, type, date, notes) VALUES (?, ?, ?, ?, ?)',
-            args: [procedure_id, price, type, date, notes]
+            sql: 'INSERT INTO finances (procedure_id, price, type, date, notes, client_name) VALUES (?, ?, ?, ?, ?, ?)',
+            args: [procedure_id, price, type, date, notes, client_name]
     });
     res.json({ success: true, message: 'Service registered successfully' });
     } catch (error) {

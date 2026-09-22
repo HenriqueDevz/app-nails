@@ -9,6 +9,7 @@ const notesInput = document.getElementById('notes');
 const saveBtn = document.getElementById('saveBtn');
 const logoutBtn = document.getElementById('logoutBtn');
 const servicesList = document.getElementById('servicesList');
+const clientNameInput = document.getElementById('clientName');
 
 let chart = null;
 
@@ -128,6 +129,8 @@ async function loadServices() {
                 <div class="service-item">
                     <div class="service-info">
                         <span class="service-name">${s.procedure_name}</span>
+                        ${s.client_name ? `<span class="service-name">👤${s.client_name}</span>` : ''}
+                        ${s.notes ? `<span class="service-date">📝 ${s.notes}` : ''}
                         <span class="service-date">${s.date.split('-').reverse().join('/')}</span>
                         <span class="service-type">${s.type === 'proprio' ? 'Serviço Próprio' : 'Comissão Cunhada'}</span>
                     </div>
@@ -150,6 +153,7 @@ saveBtn.addEventListener('click', async () => {
     const type = typeSelect.value;
     const date = dateInput.value;
     const notes = notesInput.value.trim();
+    const client_name = clientNameInput.value.trim();
 
     if(!procedure_id || !price || !date) {
         alert('Preencha os campos obrigatórios!');
@@ -160,7 +164,7 @@ saveBtn.addEventListener('click', async () => {
         const response = await fetch('/api/finances', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ procedure_id, price, type, date, notes }),
+            body: JSON.stringify({ procedure_id, price, type, date, notes, client_name }),
             credentials: 'include'
         });
 
@@ -171,6 +175,7 @@ saveBtn.addEventListener('click', async () => {
         priceInput.value = '';
         dateInput.value = '';
         notesInput.value = '';
+        clientNameInput.value = '';
         loadServices();
     } else {
         alert('Erro ao registrar atendimento!');
