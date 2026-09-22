@@ -57,7 +57,7 @@ function updateChart(services) {
     const year = now.getFullYear();
 // Filter by current month / Filtra pelo mês atual //
     const monthServices = services.filter(s => {
-        const d = new Date(s.date);
+        const d = new Date(s.date + 'T12:00:00');
         return d.getUTCMonth() === month && d.getUTCFullYear() === year;
     });
 // Split by fortnight / Divide por quinzena //
@@ -106,7 +106,7 @@ async function loadServices() {
         const year = now.getFullYear();
 // Filter current month / Filtra mês atual //
         const monthServices = services.filter(s =>  {
-            const d = new Date(s.date);
+            const d = new Date(s.date + 'T12:00:00');
             return d.getUTCMonth() === month && d.getUTCFullYear() === year;
         });
 // Calculate totals / Calcula os totais //
@@ -128,7 +128,7 @@ async function loadServices() {
                 <div class="service-item">
                     <div class="service-info">
                         <span class="service-name">${s.procedure_name}</span>
-                        <span class="service-date">${new Date(s.date).toLocaleDateString('pt-BR')}</span>
+                        <span class="service-date">${new Date(s.date + 'T12:00:00').toLocaleDateString('pt-BR')}</span>
                         <span class="service-type">${s.type === 'proprio' ? 'Serviço Próprio' : 'Comissão Cunhada'}</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:12px;">
