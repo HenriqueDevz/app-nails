@@ -43,4 +43,13 @@ router.delete('/:id', verifyToken, async (req, res) => {
     }
 });
 
+router.post('/migrate', verifyToken, async (req, res) => {
+    try {
+        await db.execute(`ALTER TABLE finances ADD COLUMN client_name TEXT`);
+        res.json({ success: true, message: 'Migration done' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 module.exports = router;
