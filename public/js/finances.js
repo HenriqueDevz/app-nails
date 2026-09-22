@@ -45,8 +45,8 @@ function formatCurrency(value) {
 // Get fortnight / Pega a Quinzeba //
 
 function getFortnight(dateStr) {
-    const day = new Date(dateStr).getUTCDate();
-    return day <= 15 ? 1 : 2; 
+    const day = parseInt(dateStr.split ('-')[2]);
+    return day <= 15 ? 1 : 2;
 }
 
 // Uptade Chart / Atualiza o Grafico // 
@@ -57,8 +57,8 @@ function updateChart(services) {
     const year = now.getFullYear();
 // Filter by current month / Filtra pelo mês atual //
     const monthServices = services.filter(s => {
-        const d = new Date(s.date + 'T12:00:00');
-        return d.getUTCMonth() === month && d.getUTCFullYear() === year;
+        const [y, m] = s.date.split ('-');
+        return parseInt(m) - 1 === month && parseInt(y) === year;
     });
 // Split by fortnight / Divide por quinzena //
     const first = monthServices.filter(s => getFortnight(s.date) === 1)
@@ -106,8 +106,8 @@ async function loadServices() {
         const year = now.getFullYear();
 // Filter current month / Filtra mês atual //
         const monthServices = services.filter(s =>  {
-            const d = new Date(s.date + 'T12:00:00');
-            return d.getUTCMonth() === month && d.getUTCFullYear() === year;
+            const [y, m] = s.date.split('-');
+            return parseInt(m) - 1 === month && parseInt(y) === year;
         });
 // Calculate totals / Calcula os totais //
         const total = monthServices.reduce((sum, s) => sum + s.price, 0);
@@ -128,7 +128,7 @@ async function loadServices() {
                 <div class="service-item">
                     <div class="service-info">
                         <span class="service-name">${s.procedure_name}</span>
-                        <span class="service-date">${new Date(s.date + 'T12:00:00').toLocaleDateString('pt-BR')}</span>
+                        <span class="service-date">${s.date.split('-').reverse().join('/')}</span>
                         <span class="service-type">${s.type === 'proprio' ? 'Serviço Próprio' : 'Comissão Cunhada'}</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:12px;">
