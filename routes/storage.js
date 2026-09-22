@@ -123,4 +123,13 @@ router.delete('/procedure-products/:id', verifyToken, async (req, res) => {
     }
 });
 
+router.post('/migrate', verifyToken, async (req, res) => {
+    try {
+        await db.execute(`ALTER TABLE products ADD COLUMN capacity TEXT`)
+        res.json({ success: true, message: 'Migration done' });
+    } catch(error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 module.exports = router
