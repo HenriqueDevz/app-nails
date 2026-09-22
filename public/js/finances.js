@@ -202,6 +202,15 @@ logoutBtn.addEventListener('click', async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
     window.location.href = '/login.html';
 });
+//Migrate / Migração - add client_name column
+router.post('/migrate', verifyToken, async (req, res) => {
+    try {
+        await db.execute(`ALTER TABLE finances ADD COLUMN client_name TEXT`);
+        res.json({ success: true, message: 'Migration done' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
 
 // Init / Inicializa //
 loadProcedures();
