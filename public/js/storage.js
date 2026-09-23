@@ -114,7 +114,7 @@ saveProductBtn.addEventListener('click', async () => {
     try {
         const response = await fetch('/api/storage/products', {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: JSON.stringify({ name, quantity, min_quantity, unit, capacity })
         });
