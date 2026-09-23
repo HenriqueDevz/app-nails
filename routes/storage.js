@@ -49,6 +49,7 @@ router.post('/products', verifyToken, async (req, res) => {
         });
         res.json({ success: true, message: 'Product added successfully' });
     } catch (error) {
+        console.error('Erro ao Adicionar Produto:', error);
         res.status(500).json({ success: false, message: 'Error adding product' });
     }
 });

@@ -124,7 +124,7 @@ saveProductBtn.addEventListener('click', async () => {
             productNameInput.value = '';
             productQtyInput.value = '';
             productMinInput.value = '';
-            productCapacityInput = '';
+            productCapacityInput.value = '';
             loadProducts();
             productModal.classList.remove('active');
         } else {
