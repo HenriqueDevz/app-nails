@@ -4,6 +4,7 @@ const productMinInput = document.getElementById('productMin');
 const productUnitSelect = document.getElementById('productUnit');
 const saveProductBtn = document.getElementById('saveProductBtn');
 const productsList = document.getElementById('productsList');
+const productCapacityInput = document.getElementById('productCapacity');
 
 const procedureNameInput = document.getElementById('procedureName');
 const saveProcedureBtn = document.getElementById('saveProcedureBtn');
@@ -103,6 +104,7 @@ saveProductBtn.addEventListener('click', async () => {
     const quantity = parseInt(productQtyInput.value);
     const min_quantity = parseInt(productMinInput.value);
     const unit = productUnitSelect.value;
+    const capacity = productCapacityInput.value.trim();
 
     if (!name || isNaN(quantity) || isNaN(min_quantity)) {
         alert('Preencha todos os campos!');
@@ -114,7 +116,7 @@ saveProductBtn.addEventListener('click', async () => {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({ name, quantity, min_quantity, unit })
+            body: JSON.stringify({ name, quantity, min_quantity, unit, capacity })
         });
 
         const data = await response.json();
@@ -122,6 +124,7 @@ saveProductBtn.addEventListener('click', async () => {
             productNameInput.value = '';
             productQtyInput.value = '';
             productMinInput.value = '';
+            productCapacityInput = '';
             loadProducts();
             productModal.classList.remove('active');
         } else {
@@ -172,6 +175,7 @@ async function loadProcedures() {
                 <div class="service-item">
                     <div class="service-info">
                         <span class="service-name">${p.name}</span>
+                        <span class="service-date">${p.quantity} ${p.unit} ${p.capacity ? '-' + p.capacity : ''}</span>
                     </div>
                     <button class="btn-delete" onclick="deleteProcedure(${p.id})">✕</button>
                 </div>
