@@ -21,7 +21,7 @@ const editProcedure = document.getElementById('editProcedure');
 const editPrice = document.getElementById('editPrice');
 const editType = document.getElementById('editType');
 const editDate = document.getElementById('editDate');
-const editClientName = document.getElementById('editClienteName');
+const editClientName = document.getElementById('editClientName');
 const editNotes = document.getElementById('editNotes');
 const saveEditServiceBtn = document.getElementById('saveEditServiceBtn');
 
@@ -30,10 +30,10 @@ const saveEditServiceBtn = document.getElementById('saveEditServiceBtn');
 function openEditService(id, procedure_id, price, type, date, client_name, notes) {
     editServiceId.value = id;
     editPrice.value = price;
-    editType = type;
-    editDate = date;
-    editClientName = client_name || '';
-    editNotes = notes || '';
+    editType.value = type;
+    editDate.value = date;
+    editClientName.value = client_name || '';
+    editNotes.value = notes || '';
 
 // Fill procedures select - Preenche o select de procedimento //
     fetch('/api/storage/procedures', { credentials: 'include' })
@@ -74,7 +74,7 @@ saveEditServiceBtn.addEventListener('click', async () => {
             body: JSON.stringify({ procedure_id, price, type, date, notes, client_name })
         });
 
-        const date = await response.json();
+        const data = await response.json();
         if (data.success) {
             editServiceModal.classList.remove('active');
             loadServices();
@@ -204,7 +204,7 @@ async function loadServices() {
                     <div class="service-info">
                         <span class="service-name">${s.procedure_name}</span>
                         ${s.client_name ? `<span class="service-name">👤${s.client_name}</span>` : ''}
-                        ${s.notes ? `<span class="service-date">📝 ${s.notes}` : ''}
+                        ${s.notes ? `<span class="service-date">📝 ${s.notes}</span>` : ''}
                         <span class="service-date">${s.date.split('-').reverse().join('/')}</span>
                         <span class="service-type">${s.type === 'proprio' ? 'Serviço Próprio' : 'Comissão Cunhada'}</span>
                         <button class="btn-edit" onclick="openEditService(${s.id}, ${s.procedure_id}, ${s.price}, '${s.type}', '${s.date}', '${s.client_name || ''}', '${s.notes ||''}')">✏️</button>
