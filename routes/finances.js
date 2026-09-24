@@ -52,4 +52,19 @@ router.post('/migrate', verifyToken, async (req, res) => {
     }
 });
 
+router.put('/:id', verifyToken, async (req, res) => {
+    const {id} = req.params;
+    const { procedure_id, price, type, date, notes,  client_name } = req.body;
+
+    try {
+        await db.execute({
+            sql: `UPDATE finances set procedure_id = ?, price = ?, type = ?, date = ?, notes = ?, client_name = ? WHERE id = ?`,
+            args: [procedure_id, price, type, date, notes, client_name, id]
+        });
+        res.json({ success: true, message: 'Service updated successfully' });
+    } catch(error) {
+        res.status(500).json({ success:false, message: 'Error updating service' });
+    }
+});
+
 module.exports = router;

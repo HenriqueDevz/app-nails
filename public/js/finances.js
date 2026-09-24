@@ -13,6 +13,80 @@ const clientNameInput = document.getElementById('clientName');
 
 let chart = null;
 
+// Edit Service - Editar Atendimento //
+const editServiceModal = document.getElementById('editServiceModal');
+const closeEditServiceModalBtn = document.getElementById('closeEditServiceModalBtn');
+const editServiceId = document.getElementById('editServiceId');
+const editProcedure = document.getElementById('editProcedure');
+const editPrice = document.getElementById('editPrice');
+const editType = document.getElementById('editType');
+const editDate = document.getElementById('editDate');
+const editClientName = document.getElementById('editClienteName');
+const editNotes = document.getElementById('editNotes');
+const saveEditServiceBtn = document.getElementById('saveEditServiceBtn');
+
+// Open edit modal - Abre o modal de edição //
+
+function openEditService(id, procedure_id, price, type, date, client_name, notes) {
+    editServiceId.value = id;
+    editPrice.value = price;
+    editType = type;
+    editDate = date;
+    editClientName = client_name || '';
+    editNotes = notes || '';
+
+// Fill procedures select - Preenche o select de procedimento //
+    fetch('/api/storage/procedures', { credentials: 'include' })
+    .then(r => r.json())
+    .then(data => {
+        editProcedure.innerHTML = '<option value="">Selecione...</option>';
+        data.data.forEach(p => {
+            editProcedure.innerHTML +=
+                `<option value="${p.id}" ${p.id == procedure_id ? 'selected' : ''}>${p.name}</option>`;
+        });
+    });
+    editServiceModal.classList.add('active');
+}
+
+closeEditServiceModalBtn.addEventListener('click', () => {
+    editServiceModal.classList.remove('active');
+});
+
+saveEditServiceBtn.addEventListener('click', async () => {
+    const id = editServiceId.value;
+    const procedure_id = editProcedure.value;
+    const price = parseFloat(editPrice.value);
+    const type = editType.value;
+    const date = editDate.value;
+    const client_name = editClientName.value.trim();
+    const notes = editNotes.value.trim();
+
+    if (!procedure_id || !price || !date) {
+        alert('Preecha os campos obrigatórios!');
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/finances/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ procedure_id, price, type, date, notes, client_name })
+        });
+
+        const date = await response.json();
+        if (data.success) {
+            editServiceModal.classList.remove('active');
+            loadServices();
+        } else {
+            alert('Erro ao salvar alterações!');
+        }
+    } catch(error) {
+        alert('Erro ao conectar com o servidor!');
+    }
+});
+
+
 // --- Load Procedures / Carrega Procedimentos //
 
 async function loadProcedures() {
@@ -133,6 +207,7 @@ async function loadServices() {
                         ${s.notes ? `<span class="service-date">📝 ${s.notes}` : ''}
                         <span class="service-date">${s.date.split('-').reverse().join('/')}</span>
                         <span class="service-type">${s.type === 'proprio' ? 'Serviço Próprio' : 'Comissão Cunhada'}</span>
+                        <button class="btn-edit" onclick="openEditService(${s.id}, ${s.procedure_id}, ${s.price}, '${s.type}', '${s.date}', '${s.client_name || ''}', '${s.notes ||''}')">✏️</button>
                     </div>
                     <div style="display:flex; align-items:center; gap:12px;">
                         <span class="service-price">${formatCurrency(s.price)}</span>

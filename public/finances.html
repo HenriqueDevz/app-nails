@@ -83,5 +83,41 @@
         </main>
 
         <script src="/js/finances.js"></script>
+        
+    <div class="modal-overlay" id="editServiceModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2 class="section-title">Editar Atendimento</h2>
+                <button class="modal-close" id="closeEditServiceModalBtn">X</button>
+            </div>
+            <input type="hidden" id="editServiceId"/>
+            <div class="input-group">
+                <label for="editProcedure">Procedimento</label>
+                <select id="editProcedure">
+                    <option value="">Selecione...</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="editPrice">Valor (R$)</label>
+                <input type="number" id="editPrice" step="0.01"/>
+            </div>
+            <div class="input-group">
+                <label for="editType">Tipo</label>
+                <select id="editType">
+                    <option value="proprio">Serviço Próprio</option>
+                    <option value="comissao">Comissão Cunhada</option>
+                </select>
+            </div>]
+            <div class="input-group">
+                <label for="editDate">Data</label>
+                <input type="date" id="editDate"/>
+            </div>
+            <div class="input-group">
+                <label for="editNotes">Observações</label>
+                <input type="text" id="editNotes"/>
+            </div>
+            <button class="btn-primary" id="saveEditServiceBtn">Salvar Alterações</button>
+        </div>
+    </div>
     </body>
 </html>
