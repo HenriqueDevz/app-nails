@@ -175,7 +175,6 @@ async function loadProcedures() {
                 <div class="service-item">
                     <div class="service-info">
                         <span class="service-name">${p.name}</span>
-                        <span class="service-date">${p.quantity} ${p.unit} ${p.capacity ? '-' + p.capacity : ''}</span>
                     </div>
                     <button class="btn-delete" onclick="deleteProcedure(${p.id})">✕</button>
                 </div>
