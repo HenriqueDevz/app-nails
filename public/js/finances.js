@@ -10,7 +10,11 @@ const saveBtn = document.getElementById('saveBtn');
 const logoutBtn = document.getElementById('logoutBtn');
 const servicesList = document.getElementById('servicesList');
 const clientNameInput = document.getElementById('clientName');
+const discountCard = document.getElementById('discountCard');
+const discountValue = document.getElementById('discountValue');
 
+let totalMonthValue = 0; // Stores total - Armazena o total //
+let discountShowing = false; // Toggle state - Esdado do toggle //
 let chart = null;
 
 // Edit Service - Editar Atendimento //
@@ -86,9 +90,18 @@ saveEditServiceBtn.addEventListener('click', async () => {
     }
 });
 
-
+//Discount card click - Clique no card de desconto //
+discountCard.addEventListener('click', () => {
+    if (!discountShowing) {
+        const discounted = totalMonthValue * 0.85;
+        discountValue.textContent = formatCurrency(discounted);
+        discountShowing = true;
+    } else {
+        discountValue.textContent = 'Ver';
+        discountShowing = false;
+    }
+});
 // --- Load Procedures / Carrega Procedimentos //
-
 async function loadProcedures() {
     try {
         const response = await fetch('/api/storage/procedures', {
@@ -121,7 +134,12 @@ function formatCurrency(value) {
 
 function getFortnight(dateStr) {
     const day = parseInt(dateStr.split ('-')[2]);
-    return day <= 15 ? 1 : 2;
+    if (day >= 8 && day <=20) {
+        return 1;
+    } else {
+        return 2;
+    }
+   // return (day >= 8 && day <= 20) ? 1 : 2; -> Forma curta //
 }
 
 // Uptade Chart / Atualiza o Grafico // 
@@ -146,7 +164,7 @@ function updateChart(services) {
     chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['1ª Quinzena (1-15)', '2ª Quinzena (16-31)'],
+            labels: ['Periódo 1 (8-20)', 'Periódo 2 (21-7)'],
             datasets: [{
                 label:'Receita (R$)',
                 data: [first, second],
@@ -194,6 +212,7 @@ async function loadServices() {
         totalMonth.textContent = formatCurrency(total);
         totalFortnight.textContent = formatCurrency(fTotal);
         avgService.textContent = formatCurrency(avg);
+        totalMonthValue = total;
 // Update chart / Atualiza o gráfico //
         updateChart(services);
 // Render list / Renderiza a lista //
