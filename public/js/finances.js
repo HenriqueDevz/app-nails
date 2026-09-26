@@ -182,8 +182,8 @@ function getFortnight(dateStr) {
 
 function updateChart(services) {
     const now = new Date();
-    const month = now.getMonth();
-    const year = now.getFullYear();
+    const month = selectedMonth;
+    const year = selectedYear;
 // Filter by current month / Filtra pelo mês atual //
     const monthServices = services.filter(s => {
         const [y, m] = s.date.split ('-');
@@ -253,7 +253,7 @@ async function loadServices() {
         updateChart(services);
 // Render list / Renderiza a lista //
         servicesList.innerHTML = '';
-        services.forEach(s => {
+        monthServices.forEach(s => {
             servicesList.innerHTML += `
                 <div class="service-item">
                     <div class="service-info">
