@@ -145,8 +145,10 @@ async function loadProducts() {
                         <span class="service-date">${p.quantity} ${p.unit}${p.capacity ? ' - ' + p.capacity : ''}</span>
                          ${low ? '<span class="stock-alert">Estoque Baixo!</span>' : '' }
                         </div>
-                        <button class="btn-delete" onclick="deleteProduct(${p.id})">X</button>
-                        <button class="btn-edit" onclick="openEditProduct(${p.id}, '${p.name}', ${p.quantity}, ${p.min_quantity}, '${p.unit}', '${p.capacity || ''}')">✏️</button>
+                        <div style="display:flex; align-items:center; gap: 8px;">
+                            <button class="btn-edit" onclick="openEditProduct(${p.id}, '${p.name}', ${p.quantity}, ${p.min_quantity}, '${p.unit}', '${p.capacity || ''}')">✏️</button>
+                            <button class="btn-delete" onclick="deleteProduct(${p.id})">X</button>
+                        </div>
                     </div>
                 `;
         });

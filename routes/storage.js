@@ -132,7 +132,7 @@ router.post('/migrate', verifyToken, async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 });
-router.put('/:id', verifyToken, async (req, res) => {
+router.put('/products/:id   ', verifyToken, async (req, res) => {
     const { id } = req.params;  
     const { name, quantity , min_quantity , unit , capacity ,} = req.body;
 
