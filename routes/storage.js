@@ -132,5 +132,19 @@ router.post('/migrate', verifyToken, async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 });
+router.put('/:id', verifyToken, async (req, res) => {
+    const { id } = req.params;  
+    const { name, quantity , min_quantity , unit , capacity ,} = req.body;
+
+    try {
+        await db.execute({
+            sql: `UPDATE products SET name = ?, quantity = ?, min_quantity = ?, unit = ?, capacity = ? WHERE id = ?`,
+            args: [ name, quantity, min_quantity, unit, capacity, id ]
+        });
+        res.json({ success: true, message: 'products updated successfully' });
+    } catch(error) {
+        res.status(500).json({ success:false, message: 'Error updating products' });
+    }
+});
 
 module.exports = router

@@ -35,6 +35,62 @@ tabBtns.forEach(btn => {
     });
 });
 
+// Edit Product - Editar Produto //
+const editProductModal = document.getElementById('editProductModal');
+const closeEditProductModalBtn = document.getElementById('closeEditProductModalBtn');
+const editProductNameModal = document.getElementById('editProductNameModal');
+const editProductQtyModal = document.getElementById('editProductQtyModal');
+const editProductMinModal = document.getElementById('editProductMinModal');
+const editProductCapacityModal = document.getElementById('editProductCapacityModal');
+const editProductUnitModal = document.getElementById('editProductUnitModal');
+const saveEditProductBtn = document.getElementById('saveEditProductBtn');
+const editProductId = document.getElementById('editProductId');
+
+function openEditProduct (id, name , quantity, min_quantity, unit, capacity) {
+   editProductId.value = id;
+   editProductNameModal.value = name;
+   editProductQtyModal.value = quantity;
+   editProductMinModal.value = min_quantity;
+   editProductUnitModal.value = unit;
+   editProductCapacityModal.value = capacity || '';
+   editProductModal.classList.add('active');
+}
+closeEditProductModalBtn.addEventListener('click', () => {
+    editProductModal.classList.remove('active');
+});
+
+saveEditProductBtn.addEventListener('click', async () => {
+    const id = editProductId.value;
+    const name = editProductNameModal.value.trim();
+    const quantity = parseInt(editProductQtyModal.value);
+    const min_quantity = parseInt(editProductMinModal.value);
+    const unit = editProductUnitModal.value;
+    const capacity = editProductCapacityModal.value.trim();
+
+    if (!name || isNaN(quantity) || isNaN(min_quantity)) {
+        alert('Preencha todos os campos!');
+        return;
+    }
+    try {
+        const response = await fetch(`/api/storage/products/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ name, quantity, min_quantity, unit, capacity })
+        });
+
+        const data = await response.json();
+        if(data.success) {
+            editProductModal.classList.remove('active');
+            loadProducts();
+        } else {
+            alert('Erro ao salvar produto!');
+        }
+    } catch (error) {
+        alert('Erro ao conectar com o servidor!');
+    }
+});
+
 // Modal: Product // Produto //
 const productModal = document.getElementById('productModal');
 const openProductModalBtn = document.getElementById('openProductModalBtn');
@@ -90,6 +146,7 @@ async function loadProducts() {
                          ${low ? '<span class="stock-alert">Estoque Baixo!</span>' : '' }
                         </div>
                         <button class="btn-delete" onclick="deleteProduct(${p.id})">X</button>
+                        <button class="btn-edit" onclick="openEditProduct(${p.id}, '${p.name}', ${p.quantity}, ${p.min_quantity}, '${p.unit}', '${p.capacity || ''}')">✏️</button>
                     </div>
                 `;
         });

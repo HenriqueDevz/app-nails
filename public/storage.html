@@ -126,7 +126,45 @@
                 <button class="btn-primary" id="saveProcedureBtn">Adicionar Procedimento</button>
             </div>
         </div>
-        
+
+        <!-- Modal: Edit Product / Edição de Produto -->
+        <div class="modal-overlay" id="editProductModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2 class="section-title">Editar Produto</h2>
+                <button class="modal-close" id="closeEditProductModalBtn">X</button>
+            </div>
+            <input type="hidden" id="editProductId"/>
+            <div class="input-group">
+                <label for="editProductNameModal">Nome do Producto</label>
+                <input type="text" id="editProductNameModal"/>
+            </div>
+            <div class="input-group">
+                    <label for="editProductQtyModal">Quantidade em Estoque</label>
+                    <input type="number" id="editProductQtyModal"/>
+                </div>
+                <div class="input-group">
+                    <label for="editProductMinModal">Quantidade Mínima</label>
+                    <input type="number" id="editProductMinModal"/>
+                </div>
+                <div class="input-group">
+                    <label for="editProductUnitModal">Unidade</label>
+                    <select id="editProductUnitModal">
+                        <option value="unidade">Unidade</option>
+                        <option value="ml">mL</option>
+                        <option value="g">g</option>
+                        <option value="frasco">frasco</option>
+                        <option value="pacote">Pacote</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="editProductCapacityModal">Capacidade</label>
+                    <input type="text" id="editProductCapacityModal"/>
+                </div>
+                <button class="btn-primary" id="saveEditProductBtn">Salvar Alterações</button>
+            </div>
+        </div>
+
     <script src="/js/storage.js"></script>
 </body>
 </html>
