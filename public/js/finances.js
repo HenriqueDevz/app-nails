@@ -231,8 +231,8 @@ async function loadServices() {
 
         const services = data.data;
         const now = new Date();
-        const month = selectedMonth();
-        const year = selectedYear();
+        const month = selectedMonth;
+        const year = selectedYear;
 // Filter current month / Filtra mês atual //
         const monthServices = services.filter(s =>  {
             const [y, m] = s.date.split('-');
