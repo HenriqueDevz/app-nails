@@ -522,3 +522,36 @@ body {
     cursor: pointer;
     padding: 4px;
 }
+
+/* Month Selector - Seletor de Mês */
+.month-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 8px 0;
+}
+
+.month-label {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--pink-dark);
+    min-height: 140px;
+    text-align: center;
+}
+
+.btn-month {
+    background: var(--pink-light);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    color: var(--pink-dark);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-month:hover {
+    background: var(--pink-medium);
+}

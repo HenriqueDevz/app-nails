@@ -12,10 +12,23 @@ const servicesList = document.getElementById('servicesList');
 const clientNameInput = document.getElementById('clientName');
 const discountCard = document.getElementById('discountCard');
 const discountValue = document.getElementById('discountValue');
+const prevMonthBtn = document.getElementById('prevMonth');
+const nextMonthBtn = document.getElementById('nextMonth');
+const monthLabel = document.getElementById('monthLabel');
 
+let selectedMonth = new Date().getMonth();
+let selectedYear = new Date().getFullYear();
 let totalMonthValue = 0; // Stores total - Armazena o total //
 let discountShowing = false; // Toggle state - Esdado do toggle //
 let chart = null;
+
+const monthNames = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+];
+
+function updatedMonthLabel() {
+    monthLabel.textContent = `${monthNames[selectedMonth]} ${selectedYear}`;
+}
 
 // Edit Service - Editar Atendimento //
 const editServiceModal = document.getElementById('editServiceModal');
@@ -101,6 +114,29 @@ discountCard.addEventListener('click', () => {
         discountShowing = false;
     }
 });
+
+prevMonthBtn.addEventListener('click', () => {
+    selectedMonth--;
+    if (selectedMonth < 0) {
+        selectedMonth = 11;
+        selectedYear--;
+    }
+    updatedMonthLabel();
+    loadServices();
+});
+
+nextMonthBtn.addEventListener('click', () => {
+    selectedMonth++;
+    if (selectedMonth > 11) {
+        selectedMonth = 0;
+        selectedYear ++;
+    }
+    updatedMonthLabel();
+    loadServices();
+});
+
+updatedMonthLabel();
+
 // --- Load Procedures / Carrega Procedimentos //
 async function loadProcedures() {
     try {
@@ -195,8 +231,8 @@ async function loadServices() {
 
         const services = data.data;
         const now = new Date();
-        const month = now.getMonth();
-        const year = now.getFullYear();
+        const month = selectedMonth();
+        const year = selectedYear();
 // Filter current month / Filtra mês atual //
         const monthServices = services.filter(s =>  {
             const [y, m] = s.date.split('-');
