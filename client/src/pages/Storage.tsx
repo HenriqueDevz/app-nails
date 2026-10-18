@@ -174,8 +174,12 @@ return (
                     <span className="text-xs text-pink-500 font-medium">⚠️ Estoque baixo!</span>
                 )}
                 </div>
-                <button onClick={() => handleDeleteProduct(p.id)}
-                className="text-pink-300 hover:text-pink-500 transition-colors text-lg">✕</button>
+                <div className="flex items-center gap-2">
+                    <button onClick={() => handleEditProduct (p)}
+                        className="text-pink-300 hover:text-pink-500 transition-colors text-base">✏️</button>
+                    <button onClick={() => handleDeleteProduct(p.id)}
+                        className="text-pink-300 hover:text-pink-500 transition-colors text-base">X</button>
+                </div>
             </div>
             ))
         )}
@@ -319,7 +323,7 @@ return (
 {/* Modal: New Procedure - Novo Procedimento*/}
     {showProcedureModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
-            <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85] overflow-y-auto">
+            <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
                 <div className="flex justify-between items-center">
                     <h2 className="text-base font-medium text-pink-800">Novo Procedimento</h2>
                     <button onClick={() => setShowProcedureModal(false)} className="text-pink-400 text-lg">X</button>
