@@ -137,6 +137,10 @@ function Finances () {
         }
     }
 
+    function handleEditService(s: Service) {
+        alert(`Editar: ${s.procedure_name}`)
+    }
+
     return (
         <div className='min-h-screen bg-white'>
             <Header activePage='finances' />
