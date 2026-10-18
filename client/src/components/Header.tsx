@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { logoutUser } from '../services/api'
 
 // Props define what the component receives / Props define o que o componente recebe
@@ -20,8 +20,8 @@ function Header({ activePage }: HeaderProps) {
       <h1 className="text-lg font-medium text-white">💅 Gestão Nails</h1>
 
       <nav className="flex gap-2">
-        <a
-          href="/finances"
+          <Link
+            to="/finances"
           className={`text-sm px-3 py-1.5 rounded-full transition-colors ${
             activePage === 'finances'
               ? 'bg-white text-pink-500 font-medium'
@@ -29,9 +29,9 @@ function Header({ activePage }: HeaderProps) {
           }`}
         >
           Financeiro
-        </a>
-        <a
-          href="/storage"
+        </Link>
+        <Link
+          to="/storage"
           className={`text-sm px-3 py-1.5 rounded-full transition-colors ${
             activePage === 'storage'
               ? 'bg-white text-pink-500 font-medium'
@@ -39,7 +39,7 @@ function Header({ activePage }: HeaderProps) {
           }`}
         >
           Estoque
-        </a>
+        </Link>
       </nav>
 
       <button
