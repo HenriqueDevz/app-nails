@@ -262,7 +262,10 @@ function Finances () {
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <span className="text-base font-medium text-pink-500">{formatCurrency(s.price)}</span>
-                                    <button onClick={() => handleDeleteService(s.id)} className="text-pink-300 hover:text-pink-500 transition-colors text-lg">X</button>
+                                    <button onClick={() => handleEditService(s)}
+                                        className="text-pink-300 hover:text-pink-500 transition-colors">✏️</button>
+                                    <button onClick={() => handleDeleteService(s.id)}
+                                        className="text-pink-300 hover:text-pink-500 transition-colors text-lg">X</button>
                                 </div>
                             </div>
                             ))
