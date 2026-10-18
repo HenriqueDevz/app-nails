@@ -127,6 +127,10 @@ async function handleRemoveFromRecipe(id: number) {
     if (data.success) loadRecipe(parseInt(selectedProcedure))
 }
 
+function handleEditProduct(p: Product) {
+    alert (`Editar: ${p.name}`)
+}
+
 return (
     <div className="min-h-screen bg-white">
         <Header activePage="storage" />
