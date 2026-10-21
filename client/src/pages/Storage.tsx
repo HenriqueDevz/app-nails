@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import Header from "../components/Header"
-import { getProducts, createProduct, deleteProduct, getProcedures, createProcedure, deleteProcedure, getRecipe, addToRecipe, removeFromRecipe } from '../services/api'
+import { getProducts, createProduct, deleteProduct, getProcedures, createProcedure, deleteProcedure, getRecipe, addToRecipe, removeFromRecipe, updateProduct } from '../services/api'
 
 // Types - Tipos //
 interface Product {
@@ -33,6 +33,15 @@ function Storage() {
 
     //Procedure form - Formulário de procedimento //
     const [procedureName, setProcedureName] = useState('')
+
+    // Edit product state - Estado de edição de produto //
+    const [showEditProductModal, setShowEditProductModal] = useState(false)
+    const [editingProduct, setEditingProduct] = useState<Product | null>(null)
+    const [editProductName, setEditProductName] = useState('')
+    const [editProductQty, setEditProductQty] = useState('')
+    const [editProductMin, setEditProductMin] = useState('')
+    const [editProductUnit, setEditProductUnit] = useState('unidade')
+    const [editProductCapacity, setEditProductCapacity] = useState(''   )
     
     //Recipe state - Estado da receita //
     const [selectedProcedure, setSelectedProcedure] = useState('')
@@ -128,7 +137,32 @@ async function handleRemoveFromRecipe(id: number) {
 }
 
 function handleEditProduct(p: Product) {
-    alert (`Editar: ${p.name}`)
+    setEditingProduct(p)
+    setEditProductName(p.name)
+    setEditProductQty(String(p.quantity))
+    setEditProductMin(String(p.min_quantity))
+    setEditProductUnit(p.unit)
+    setEditProductCapacity(p.capacity || '')
+    setShowProductModal(true)
+}
+
+async function handleSaveEditProduct() {
+    if (!editingProduct || !editProductName || !editProductQty || !editProductMin) {
+        alert('Preencha todos os campos!')
+        return
+    }
+    const data = await updateProduct(editingProduct.id, {
+        name: editProductName,
+        quantity: parseInt(editProductQty),
+        min_quantity: parseInt(editProductMin),
+        unit: editProductUnit,
+        capacity: editProductCapacity
+    })
+    if (data.success) {
+        setShowEditProductModal(false)
+        setEditingProduct(null)
+        loadData()
+    }
 }
 
 return (
@@ -271,6 +305,8 @@ return (
 
 </main>
 
+
+
 {/* Modal: New Product - Novo Produto */}
     {showProductModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
@@ -323,30 +359,86 @@ return (
             </div>
         </div>
     )}
+{/* Modal: Edit Product - Editar Produto */}
+{showEditProductModal && (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
+        <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+            <div className="flex justify-between items-center">
+                <h2 className="text-base font-medium text-pink-800">Editar Produto</h2>
+                <button onClick={() => setShowEditProductModal(false)} className="text-pink-400 text-lg">✕</button>
+            </div>
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Nome</label>
+                <input type="text" value={editProductName}
+                    onChange={e => setEditProductName(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+            </div>
+            <div className="flex gap-3">
+                <div className="flex flex-col gap-1.5 w-24">
+                    <label className="text-xs font-medium text-pink-600">Qtd. Atual</label>
+                    <input type="number" value={editProductQty}
+                        onChange={e => setEditProductQty(e.target.value)}
+                        className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/>
+                </div>
+                <div className="flex flex-col gap-1.5 w-24">
+                    <label className="text-xs font-medium text-pink-600">Qtd. Mínima</label>
+                    <input type="number" value={editProductMin}
+                        onChange={e => setEditProductMin(e.target.value)}
+                        className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/>
+                </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Unidade</label>
+                <select value={editProductUnit} onChange={e => setEditProductUnit(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                    <option value="unidade">Unidade</option>
+                    <option value="ml">mL</option>
+                    <option value="g">g</option>
+                    <option value="frasco">Frasco</option>
+                    <option value="pacote">Pacote</option>
+                </select>
+            </div>
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Capacidade</label>
+                <input type="text" value={editProductCapacity}
+                    onChange={e => setEditProductCapacity(e.target.value)}
+                    placeholder="Ex: 15g"
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+            </div>
+            <button onClick={handleSaveEditProduct}
+                className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
+                Salvar Alterações
+            </button>
+        </div>
+    </div>
+)}
 
 {/* Modal: New Procedure - Novo Procedimento*/}
-    {showProcedureModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
-            <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
-                <div className="flex justify-between items-center">
-                    <h2 className="text-base font-medium text-pink-800">Novo Procedimento</h2>
-                    <button onClick={() => setShowProcedureModal(false)} className="text-pink-400 text-lg">X</button>
+        {showProcedureModal && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
+                <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-base font-medium text-pink-800">Novo Procedimento</h2>
+                        <button onClick={() => setShowProcedureModal(false)} className="text-pink-400 text-lg">X</button>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-medium text-pink-600">Nome do Procedimento</label>
+                        <input type="text" value={procedureName} onChange={e => setProcedureName(e.target.value)}
+                            placeholder="Ex: Gel com Molde F1"
+                            className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    </div>
+                    <button onClick={handleCreateProcedure}
+                        className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
+                        Adicionar Procedimento
+                    </button>
                 </div>
-                <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Nome do Procedimento</label>
-                    <input type="text" value={procedureName} onChange={e => setProcedureName(e.target.value)}
-                      placeholder="Ex: Gel com Molde F1"
-                      className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
-                </div>
-                <button onClick={handleCreateProcedure}
-                  className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
-                    Adicionar Procedimento
-                  </button>
             </div>
-        </div>
-    )}
-</div>
-)
-}
+        )}
+    </div>
+    
+
+)}
+
+
 
 export default Storage
