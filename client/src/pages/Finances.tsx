@@ -181,39 +181,39 @@ function Finances () {
     }
 
     return (
-        <div className='min-h-screen bg-white'>
+        <div className='min-h-screen bg-white dark:bg-gray-950'>
             <Header activePage='finances' />
 
             <main className="max-w-lg mx-auto px-4 py-5 flex flex-col gap-6">
 
                 {/* Summary cards / Cards de resumo */}
                 <div className="grid grid-cols-2 gap-2.5">
-                    <div className="bg-pink-100 rounded-2xl p-3.5 flex flex-col items-center gap-1.5 text-center">
-                        <span className="text-xs font-medium text-pink-800">Total do Mês</span>
-                        <span className="text-base font-medium text-pink-500">{formatCurrency(total)}</span>
+                    <div className="bg-pink-100 dark:bg-gray-800 rounded-2xl p-3.5 flex flex-col items-center gap-1.5 text-center">
+                        <span className="text-xs font-medium text-pink-800 dark:text-pink-300">Total do Mês</span>
+                        <span className="text-base font-medium text-pink-500 dark:text-pink-400">{formatCurrency(total)}</span>
                     </div>
-                    <div className="bg-pink-100 rounded-2xl p-3.5 flex flex-col items-center gap-1.5 text-center">
-                        <span className="text-xs font-medium text-pink-800">Período Atual</span>
-                        <span className="text-base font-medium text-pink-500">{formatCurrency(periodTotal)}</span>
+                    <div className="bg-pink-100 dark:bg-gray-800 rounded-2xl p-3.5 flex flex-col items-center gap-1.5 text-center">
+                        <span className="text-xs font-medium text-pink-800 dark:text-pink-300">Período Atual</span>
+                        <span className="text-base font-medium text-pink-500 dark:text-pink-400">{formatCurrency(periodTotal)}</span>
                     </div>
-                    <div className="bg-pink-100 rounded-2xl p-3.5 flex flex-col items-center gap-1.5 text-center col-span-2">
-                        <span className="text-xs font-medium text-pink-800">Média por Atendimento</span>
-                        <span className="text-base font-medium text-pink-500">{formatCurrency(avg)}</span>
+                    <div className="bg-pink-100 dark:bg-gray-800 rounded-2xl p-3.5 flex flex-col items-center gap-1.5 text-center col-span-2">
+                        <span className="text-xs font-medium text-pink-800 dark:text-pink-300">Média por Atendimento</span>
+                        <span className="text-base font-medium text-pink-500 dark:text-pink-400">{formatCurrency(avg)}</span>
                     </div>
                 </div>
 
                 {/* Month selector - Seletor de mês */}
                 <div className="flex items-center justify-center gap-4">
-                    <button onClick={prevMonth} className="w-8 h-8 rounded-full bg-pink-100 text-pink-800 hover:bg-pink-200 transition-colors">←</button>
-                    <span className="text-sm font-medium text-pink-800 min-w-36 text-center">
+                    <button onClick={prevMonth} className="w-8 h-8 rounded-full bg-pink-100 dark:bg-gray-800 text-pink-800 hover:bg-pink-200 transition-colors">←</button>
+                    <span className="text-sm font-medium text-pink-800 dark:text-pink-300 min-w-36 text-center">
                         {monthNames[selectedMonth]} {selectedYear}
                     </span>
                     <button onClick={nextMonth} className="w-8 h-8 rounded-full bg-pink-100 text-pink-800 hover:bg-pink-200 transition-colors">→</button>
                 </div>
 
                 {/* Chart placeholder - Placeholder do Gráfico */}
-                <div className="border border-pink-200 rounded-2xl p-4">
-                    <h2 className="text-sm font-medium text-pink-800 mb-3">Comparativo do Período</h2>
+                <div className="border border-pink-200 dark:border-gray-700 rounded-2xl p-4">
+                    <h2 className="text-sm font-medium text-pink-800 dark:text-pink-300 mb-3">Comparativo do Período</h2>
                     <div className="h-32 flex items-end justify-around gap-4 px-4 relative">
                         <div className="flex flex-col items-center gap-1.5 flex-1 h-full justify-end">
                             <span className="text-xs text-pink-600">{formatCurrency(period1Total)}</span>
@@ -231,13 +231,13 @@ function Finances () {
                 {/* New service form - Formulário novo Atendimento */}
 
                 <div>
-                    <h2 className="text-sm font-medium text-pink-800 mb-3">Novo Atendimento</h2>
-                    <div className="bg-white border border-pink-200 rounded-2xl p-5 flex flex-col gap-3.5">
+                    <h2 className="text-sm font-medium text-pink-800 dark:text-pink-300 mb-3">Novo Atendimento</h2>
+                    <div className="bg-white dark:bg-gray-900 border border-pink-200 dark:border-gray-700 rounded-2xl p-5 flex flex-col gap-3.5">
                         
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-medium text-pink-600">Procedimento</label>
+                            <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Procedimento</label>
                             <select value={procedureId} onChange={e => setProcedureId(e.target.value)}
-                            className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                            className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none">
                             <option value="">Selecione...</option>
                             {procedures.map(p => (
                                 <option key={p.id} value={p.id}>{p.name}</option>
@@ -246,38 +246,38 @@ function Finances () {
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-medium text-pink-600">Valor  (R$)</label>
+                            <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Valor  (R$)</label>
                             <input type="number" step="0.01" placeholder="0,00" value={price}
                                 onChange={e => setPrice(e.target.value)}
-                                className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                                className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-medium text-pink-600">Tipo</label>
+                            <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Tipo</label>
                             <select value={type} onChange={e => setType(e.target.value)}
-                                className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                                className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none">
                                 <option value="proprio">Serviço Próprio</option> 
                             </select>
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-medium text-pink-600">Data</label>
+                            <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Data</label>
                             <input type="date" value={date} onChange={e => setDate(e.target.value)}
-                            className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                            className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-medium text-pink-600">Nome do Cliente</label>
+                            <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Nome do Cliente</label>
                             <input type="text" placeholder="Ex: Maria Silva" value={clientName}
                                 onChange={e => setClientName(e.target.value)} autoComplete="off"
-                                className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                                className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-medium text-pink-600">Observações</label>
+                            <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Observações</label>
                             <input type="text" placeholder="Ex: Cliente Especial" value={notes}
                                 onChange={e => setNotes(e.target.value)}
-                                className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>    
+                                className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>    
                         </div>
 
                         <button onClick={handleCreateService}
@@ -290,18 +290,18 @@ function Finances () {
                 {/* Services List - Lista de Atendimentos*/}
 
                 <div>
-                    <h2 className="text-sm font-medium text-pink-800 mb-3">Atendimentos</h2>
+                    <h2 className="text-sm font-medium text-pink-800 dark:text-pink-300 mb-3">Atendimentos</h2>
                     <div className="flex flex-col gap-2.5">
                         {monthServices.length === 0 ? (
                             <p className="text-sm text-pink-400 text-center py-4">Nemhum atendimento neste Mês</p>
                         ) : (
                             monthServices.map(s => (
-                                <div key={s.id} className="bg-pink-100 rounded-2xl px-4 py-3.4 flex justify-between items-center">
+                                <div key={s.id} className="bg-pink-100 dark:bg-gray-800 rounded-2xl px-4 py-3.4 flex justify-between items-center">
                                 <div className="flex flex-col gap-0.5">
-                                    <span className="text-sm font-medium text-pink-800">{s.procedure_name}</span>
-                                    {s.client_name && <span className="text-xs text-pink-600">👤{s.client_name}</span>}
-                                    {s.notes && <span className="text-xs text-pink-600">📝{s.notes}</span>}
-                                    <span className="text-xs text-pink-500">{s.date.split('-').reverse().join('/')}</span>
+                                    <span className="text-sm font-medium text-pink-800 dark:text-pink-300">{s.procedure_name}</span>
+                                    {s.client_name && <span className="text-xs text-pink-600 dark:text-pink-400">👤{s.client_name}</span>}
+                                    {s.notes && <span className="text-xs text-pink-600 dark:text-pink-400">📝{s.notes}</span>}
+                                    <span className="text-xs text-pink-500 dark:text-pink-400">{s.date.split('-').reverse().join('/')}</span>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <span className="text-base font-medium text-pink-500">{formatCurrency(s.price)}</span>
@@ -319,16 +319,16 @@ function Finances () {
             </main>
             {showEditModal && (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
-        <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+        <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
             <div className="flex justify-between items-center">
-                <h2 className="text-base font-medium text-pink-800">Editar Atendimento</h2>
+                <h2 className="text-base font-medium text-pink-800 dark:text-pink-300">Editar Atendimento</h2>
                 <button onClick={() => setShowEditModal(false)} className="text-pink-400 text-lg">✕</button>
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Procedimento</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Procedimento</label>
                 <select value={editProcedureId} onChange={e => setEditProcedureId(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none">
                     <option value="">Selecione...</option>
                     {procedures.map(p => (
                         <option key={p.id} value={p.id}>{p.name}</option>
@@ -337,41 +337,41 @@ function Finances () {
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Valor (R$)</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Valor (R$)</label>
                 <input type="number" step="0.01" value={editPrice}
                     onChange={e => setEditPrice(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Tipo</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Tipo</label>
                 <select value={editType} onChange={e => setEditType(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none">
                     <option value="proprio">Serviço Próprio</option>
                     <option value="comissao">Comissão</option>
                 </select>
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Data</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Data</label>
                 <input type="date" value={editDate}
                     onChange={e => setEditDate(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Nome do Cliente</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Nome do Cliente</label>
                 <input type="text" value={editClientName}
                     onChange={e => setEditClientName(e.target.value)}
                     autoComplete="off"
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Observações</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Observações</label>
                 <input type="text" value={editNotes}
                     onChange={e => setEditNotes(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-gray-100 outline-none"/>
             </div>
 
             <button onClick={handleSaveEdit}
