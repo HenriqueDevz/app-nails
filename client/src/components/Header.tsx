@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom'
 import { logoutUser } from '../services/api'
+import { useTheme } from '../hooks/useTheme'
 
 // Props define what the component receives / Props define o que o componente recebe
 interface HeaderProps {
@@ -8,6 +9,7 @@ interface HeaderProps {
 
 function Header({ activePage }: HeaderProps) {
   const navigate = useNavigate()
+  const { isDark, toggleTheme } = useTheme()
 
   async function handleLogout() {
     await logoutUser()
@@ -41,14 +43,23 @@ function Header({ activePage }: HeaderProps) {
           Estoque
         </Link>
       </nav>
-
-      <button
+      
+      <div className="flex items-center gap-2">
+        <button
+          onClick={toggleTheme}
+          className="text-white text-xl hover:opacity-75 transition-opacity"
+          title={isDark ? 'Modo Claro' : 'Modo Escuro'}
+        >
+          {isDark ? '☀️' : '🌙'}
+        </button>
+      
+        <button
         onClick={handleLogout}
         className="text-sm border border-pink-100 text-white rounded-full px-3.5 py-1.5 hover:bg-pink-600 transition-colors"
-      >
+        >
         Sair
-      </button>
-
+        </button>
+      </div>
     </header>
   )
 }
