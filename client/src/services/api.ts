@@ -172,3 +172,21 @@ export async function updateService(id: number, data: {
   })
   return response.json()
 }
+
+// Update product -- Atualiza Produto //
+export async function updateProduct(id: number, data: {
+  name: string
+  quantity: number
+  min_quantity: number
+  unit: string
+  capacity: string
+})
+{
+  const response = await fetch(`${API_URL}/storage/products/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+  return response.json()
+}

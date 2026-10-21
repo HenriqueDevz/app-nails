@@ -53,6 +53,16 @@ function Finances () {
     const [clientName, setClientName] = useState('')
     const [notes, setNotes] = useState('')
 
+    // Edit service state - Estado de edição //
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [editingService, setEditingService] = useState<Service | null>(null)
+    const [editProcedureId,setEditProcedureId] = useState('')
+    const [editPrice, setEditPrice] = useState ('')
+    const [editType, setEditType] = useState ('proprio')
+    const [editDate, setEditDate] = useState ('')
+    const [editClientName, setEditClientName] = useState ('')
+    const [editNotes, setEditNotes] = useState ('')
+
     useEffect(() => {
         loadData()
     }, [])
@@ -147,16 +157,6 @@ function Finances () {
         setEditNotes(s.notes || '')
         setShowEditModal(true)
     }
-
-    // Edit service state - Estado de edição //
-    const [showEditModal, setShowEditModal] = useState(false)
-    const [editingService, setEditingService] = useState<Service | null>(null)
-    const [editProcedureId,setEditProcedureId] = useState('')
-    const [editPrice, setEditPrice] = useState ('')
-    const [editType, setEditType] = useState ('proprio')
-    const [editDate, setEditDate] = useState ('')
-    const [editClientName, setEditClientName] = useState ('')
-    const [editNotes, setEditNotes] = useState ('')
 
     async function handleSaveEdit () {
         if (!editingService || !editProcedureId || !editPrice || !editDate) {
