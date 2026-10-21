@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import { getServices, getProcedures, createService, deleteService } from '../services/api'
+import { getServices, getProcedures, createService, deleteService, updateService } from '../services/api'
 
 // Types / Tipos //
 
@@ -138,7 +138,46 @@ function Finances () {
     }
 
     function handleEditService(s: Service) {
-        alert(`Editar: ${s.procedure_name}`)
+        setEditingService(s)
+        setEditProcedureId(String(s.procedure_id))
+        setEditPrice(String(s.price))
+        setEditType(s.type)
+        setEditDate(s.date)
+        setEditClientName(s.client_name || '')
+        setEditNotes(s.notes || '')
+        setShowEditModal(true)
+    }
+
+    // Edit service state - Estado de edição //
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [editingService, setEditingService] = useState<Service | null>(null)
+    const [editProcedureId,setEditProcedureId] = useState('')
+    const [editPrice, setEditPrice] = useState ('')
+    const [editType, setEditType] = useState ('proprio')
+    const [editDate, setEditDate] = useState ('')
+    const [editClientName, setEditClientName] = useState ('')
+    const [editNotes, setEditNotes] = useState ('')
+
+    async function handleSaveEdit () {
+        if (!editingService || !editProcedureId || !editPrice || !editDate) {
+            alert('Preencha os campos obrigatórios!')
+            return
+        }
+
+        const data = await updateService(editingService.id, {
+            procedure_id: parseInt(editProcedureId),
+            price: parseFloat(editPrice),
+            type: editType,
+            date: editDate,
+            client_name: editClientName,
+            notes: editNotes
+        })
+
+        if (data.success) {
+            setShowEditModal(false)
+            setEditingService(null)
+            loadData()
+        }
     }
 
     return (
@@ -278,6 +317,70 @@ function Finances () {
                 </div>
 
             </main>
+            {showEditModal && (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
+        <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+            <div className="flex justify-between items-center">
+                <h2 className="text-base font-medium text-pink-800">Editar Atendimento</h2>
+                <button onClick={() => setShowEditModal(false)} className="text-pink-400 text-lg">✕</button>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Procedimento</label>
+                <select value={editProcedureId} onChange={e => setEditProcedureId(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                    <option value="">Selecione...</option>
+                    {procedures.map(p => (
+                        <option key={p.id} value={p.id}>{p.name}</option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Valor (R$)</label>
+                <input type="number" step="0.01" value={editPrice}
+                    onChange={e => setEditPrice(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Tipo</label>
+                <select value={editType} onChange={e => setEditType(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                    <option value="proprio">Serviço Próprio</option>
+                    <option value="comissao">Comissão</option>
+                </select>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Data</label>
+                <input type="date" value={editDate}
+                    onChange={e => setEditDate(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Nome do Cliente</label>
+                <input type="text" value={editClientName}
+                    onChange={e => setEditClientName(e.target.value)}
+                    autoComplete="off"
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-pink-600">Observações</label>
+                <input type="text" value={editNotes}
+                    onChange={e => setEditNotes(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+            </div>
+
+            <button onClick={handleSaveEdit}
+                className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
+                Salvar Alterações
+            </button>
+        </div>
+    </div>
+)}
         </div>
     )
 }

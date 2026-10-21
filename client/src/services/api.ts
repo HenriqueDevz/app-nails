@@ -154,3 +154,21 @@ export async function removeFromRecipe(id: number) {
   })
   return response.json()
 }
+
+// Update service - Atualiza atendimento //
+export async function updateService(id: number, data: {
+  procedure_id: number
+  price: number
+  type: string
+  date: string
+  client_name: string
+  notes: string
+}) {
+  const response = await fetch(`${API_URL}/finances/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(data)
+  })
+  return response.json()
+}
