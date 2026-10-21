@@ -143,7 +143,7 @@ function handleEditProduct(p: Product) {
     setEditProductMin(String(p.min_quantity))
     setEditProductUnit(p.unit)
     setEditProductCapacity(p.capacity || '')
-    setShowProductModal(true)
+    setShowEditProductModal(true)
 }
 
 async function handleSaveEditProduct() {
@@ -305,60 +305,6 @@ return (
 
 </main>
 
-
-
-{/* Modal: New Product - Novo Produto */}
-    {showProductModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-            <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
-                <div className="flex justify-between items-center">
-                    <h2 className="text-base font-medium text-pink-800">Novo Produto</h2>
-                    <button onClick={() => setShowProductModal(false)} className="text-pink-400 text-lg">X</button>
-                </div>
-                    <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Nome</label>
-                    <input type="text" value={productName} onChange={e => setProductName(e.target.value)}
-                      placeholder="Ex: Gel UV"
-                      className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
-                </div>
-                <div className="flex gap-3">
-                    <div className="flex flex-col gap-2.5 w-24">
-                    <label className="text-xs font-medium text-pink-600">Qtd. Atual</label>
-                    <input type="number" value={productQty} onChange={e => setProductQty(e.target.value)}
-                      placeholder="3"
-                      className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/> 
-                </div>
-                <div className="flex flex-col gap-1.5 w-25">
-                    <label className="text-sm font-medium text-pink-600">Qtd. Mínima</label>
-                    <input type="number" value={productMin} onChange={e => setProductMin(e.target.value)}
-                        placeholder="1"
-                        className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/>
-                    </div>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Unidade</label>
-                    <select value={productUnit} onChange={e => setProductUnit(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
-                        <option value="unidade">Unidade</option>
-                        <option value="ml">mL</option>
-                        <option value="g">g</option>
-                        <option value="frasco">Frasco</option>
-                        <option value="pacote">Pacote</option>
-                    </select>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Capacidade (Ex: 15g)</label>
-                    <input type="text" value={productCapacity} onChange={e => setProductCapacity(e.target.value)}
-                     placeholder="Ex: 15g"
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
-                </div>
-                <button onClick={handleCreateProduct}
-                className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
-                Adicionar Produto
-                </button>
-            </div>
-        </div>
-    )}
 {/* Modal: Edit Product - Editar Produto */}
 {showEditProductModal && (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
@@ -412,6 +358,59 @@ return (
         </div>
     </div>
 )}
+
+{/* Modal: New Product - Novo Produto */}
+    {showProductModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+            <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
+                <div className="flex justify-between items-center">
+                    <h2 className="text-base font-medium text-pink-800">Novo Produto</h2>
+                    <button onClick={() => setShowProductModal(false)} className="text-pink-400 text-lg">X</button>
+                </div>
+                    <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-pink-600">Nome</label>
+                    <input type="text" value={productName} onChange={e => setProductName(e.target.value)}
+                      placeholder="Ex: Gel UV"
+                      className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                </div>
+                <div className="flex gap-3">
+                    <div className="flex flex-col gap-2.5 w-24">
+                    <label className="text-xs font-medium text-pink-600">Qtd. Atual</label>
+                    <input type="number" value={productQty} onChange={e => setProductQty(e.target.value)}
+                      placeholder="3"
+                      className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/> 
+                </div>
+                <div className="flex flex-col gap-1.5 w-25">
+                    <label className="text-sm font-medium text-pink-600">Qtd. Mínima</label>
+                    <input type="number" value={productMin} onChange={e => setProductMin(e.target.value)}
+                        placeholder="1"
+                        className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/>
+                    </div>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-pink-600">Unidade</label>
+                    <select value={productUnit} onChange={e => setProductUnit(e.target.value)}
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                        <option value="unidade">Unidade</option>
+                        <option value="ml">mL</option>
+                        <option value="g">g</option>
+                        <option value="frasco">Frasco</option>
+                        <option value="pacote">Pacote</option>
+                    </select>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-pink-600">Capacidade (Ex: 15g)</label>
+                    <input type="text" value={productCapacity} onChange={e => setProductCapacity(e.target.value)}
+                     placeholder="Ex: 15g"
+                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                </div>
+                <button onClick={handleCreateProduct}
+                className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
+                Adicionar Produto
+                </button>
+            </div>
+        </div>
+    )}
 
 {/* Modal: New Procedure - Novo Procedimento*/}
         {showProcedureModal && (
