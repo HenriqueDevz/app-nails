@@ -308,7 +308,7 @@ return (
 {/* Modal: Edit Product - Editar Produto */}
 {showEditProductModal && (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
-        <div className="bg-white dark:bg-gray-950 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+        <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
             <div className="flex justify-between items-center">
                 <h2 className="text-base font-medium text-pink-800 dark:text-pink-300">Editar Produto</h2>
                 <button onClick={() => setShowEditProductModal(false)} className="text-pink-400 text-lg">✕</button>
@@ -362,7 +362,7 @@ return (
 {/* Modal: New Product - Novo Produto */}
     {showProductModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-            <div className="bg-white dark:bg-gray-950 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
                 <div className="flex justify-between items-center">
                     <h2 className="text-base font-medium text-pink-800 dark:text-pink-300">Novo Produto</h2>
                     <button onClick={() => setShowProductModal(false)} className="text-pink-400 text-lg">X</button>
@@ -415,7 +415,7 @@ return (
 {/* Modal: New Procedure - Novo Procedimento*/}
         {showProcedureModal && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
-                <div className="bg-white dark:bg-gray-950 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
                     <div className="flex justify-between items-center">
                         <h2 className="text-base font-medium text-pink-800 dark:text-pink-300">Novo Procedimento</h2>
                         <button onClick={() => setShowProcedureModal(false)} className="text-pink-400 text-lg">X</button>
