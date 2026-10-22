@@ -166,7 +166,7 @@ async function handleSaveEditProduct() {
 }
 
 return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
         <Header activePage="storage" />
 
         {/* Tabs - Abas */}
@@ -178,7 +178,7 @@ return (
                 className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                     activeTab === tab
                         ? 'bg-pink-500 text-white'
-                        : 'bg-pink-100 text-pink-800'
+                        : 'bg-pink-100 dark:bg-gray-800 text-pink-800 dark:text-pink-300'
                 }`}
                 >
                     {tab === 'products' ? 'Produtos' : tab === 'procedures' ? 'Procedimentos' : 'Receitas'}
@@ -192,7 +192,7 @@ return (
             {activeTab === 'products' && (
                 <div className="flex flex-col gap-3">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-sm font-medium text-pink-800">Produtos em Estoque</h2>
+                        <h2 className="text-sm font-medium text-pink-800 dark:text-pink-300">Produtos em Estoque</h2>
                         <button onClick={() => setShowProductModal(true)}
                         className="bg-pink-500 text-white text-sm px-4 py-2 rounded-full hover:bg-pink-700 transition-colors">
                             + Novo Produto
@@ -202,10 +202,10 @@ return (
                         <p className="text-sm text-pink-400 text-center py-4">Nemhum produto cadastrado</p>
                     ) : (
                     products.map(p => (
-                        <div key={p.id} className={`bg-pink-100 rounded-2xl px-4 py-3.5 flex justify-between items-center ${p.quantity <= p.min_quantity ? 'border border-pink-400' : ''}`}>
+                        <div key={p.id} className={`bg-pink-100 dark:bg-gray-800 rounded-2xl px-4 py-3.5 flex justify-between items-center ${p.quantity <= p.min_quantity ? 'border border-pink-400' : ''}`}>
                 <div className="flex flex-col gap-0.5">
-                <span className="text-sm font-medium text-pink-800">{p.name}</span>
-                <span className="text-xs text-pink-600">
+                <span className="text-sm font-medium text-pink-800 dark:text-pink-300">{p.name}</span>
+                <span className="text-xs text-pink-600 dark:text-pink-400">
                     {p.quantity} {p.unit}{p.capacity ? ` — ${p.capacity}` : ''}
                 </span>
                 {p.quantity <= p.min_quantity && (
@@ -228,7 +228,7 @@ return (
     {activeTab === 'procedures' && (
         <div className="flex flex-col gap-3">
             <div className="flex justify-between items-center">
-                <h2 className="text-sm font-medium text-pink-800">Procedimentos</h2>
+                <h2 className="text-sm font-medium text-pink-800 dark:text-pink-300">Procedimentos</h2>
                 <button onClick={() => setShowProcedureModal(true)}
                     className="bg-pink-500 text-white text-sm px-4 py-2 rounded-full hover:bg-pink-700 transition-colors">
                     + Novo Procedimento
@@ -238,8 +238,8 @@ return (
                 <p className="text-sm text-pink-400 text-center py-4">Nemhum procedimento cadastrado</p>
             ) : (
                 procedures.map(p => (
-                    <div key={p.id} className="bg-pink-100 rounded-2xl px-4 py-3.5 flex justify-between items-center">
-                        <span className="text-sm font-medium text-pink-800">{p.name}</span>
+                    <div key={p.id} className="bg-pink-100 dark:bg-gray-800 rounded-2xl px-4 py-3.5 flex justify-between items-center">
+                        <span className="text-sm font-medium text-pink-800 dark:text-pink-300">{p.name}</span>
                         <button onClick={() => handleDeleteProcedure(p.id)}
                         className="text-pink-300 hover:text-pink-500 transition-colors text-lg">X</button>
                     </div>
@@ -251,14 +251,14 @@ return (
 {/* Recipes tab - Aba de Receitas */}
     {activeTab === 'recipes' && (
         <div className="flex flex-col gap-3">
-            <h2 className="text-sm font-medium text-pink-800">Montar Receita</h2>
+            <h2 className="text-sm font-medium text-pink-800 dark:text-pink-300">Montar Receita</h2>
 
-            <div className="bg-white border border-pink-200 rounded-2xl p-5 flex flex-col gap-3.5">
+            <div className="bg-white dark:bg-gray-950 border border-pink-200 dark:border-gray-700 rounded-2xl p-5 flex flex-col gap-3.5">
 
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Procedimento</label>
+                    <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Procedimento</label>
                     <select value={selectedProcedure} onChange={e => handleSelectProcedure(e.target.value)}
-                        className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                        className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none">
                         <option value="">Selecione...</option>
                         {procedures.map(p => (
                             <option key={p.id} value={p.id}>{p.name}</option>
@@ -273,7 +273,7 @@ return (
                                 <p className="text-xs text-pink-400 text-center py-2">Nemhum produto nesta receita</p>
                             ) : (
                                 recipe.map(r => (
-                                    <div key={r.id} className="bg-pink-100 rounded-xl px-3.5 py-2.5 flex justify-between items-center">
+                                    <div key={r.id} className="bg-pink-100 dark:bg-gray-800 rounded-xl px-3.5 py-2.5 flex justify-between items-center">
                                         <span className="text-sm text-pinmk-800">{r.name}</span>
                                         <button onClick={() => handleRemoveFromRecipe(r.id)}
                                             className="text-pink-300 hover:text-pink-500 transition-colors">X</button>
@@ -283,9 +283,9 @@ return (
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-medium text-pink-600">Adicionar Produto</label>
+                            <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Adicionar Produto</label>
                             <select value={selectedProduct} onChange={e => setSelectedProduct(e.target.value)}
-                                className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                                className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none">
                                 <option value="">Selecione...</option>
                                 {products.map(p => (
                                     <option key={p.id} value={p.id}>{p.name}</option>
@@ -308,35 +308,35 @@ return (
 {/* Modal: Edit Product - Editar Produto */}
 {showEditProductModal && (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
-        <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+        <div className="bg-white dark:bg-gray-950 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
             <div className="flex justify-between items-center">
-                <h2 className="text-base font-medium text-pink-800">Editar Produto</h2>
+                <h2 className="text-base font-medium text-pink-800 dark:text-pink-300">Editar Produto</h2>
                 <button onClick={() => setShowEditProductModal(false)} className="text-pink-400 text-lg">✕</button>
             </div>
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Nome</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Nome</label>
                 <input type="text" value={editProductName}
                     onChange={e => setEditProductName(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none"/>
             </div>
             <div className="flex gap-3">
                 <div className="flex flex-col gap-1.5 w-24">
-                    <label className="text-xs font-medium text-pink-600">Qtd. Atual</label>
+                    <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Qtd. Atual</label>
                     <input type="number" value={editProductQty}
                         onChange={e => setEditProductQty(e.target.value)}
-                        className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/>
+                        className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none w-full"/>
                 </div>
                 <div className="flex flex-col gap-1.5 w-24">
-                    <label className="text-xs font-medium text-pink-600">Qtd. Mínima</label>
+                    <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Qtd. Mínima</label>
                     <input type="number" value={editProductMin}
                         onChange={e => setEditProductMin(e.target.value)}
-                        className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/>
+                        className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none w-full"/>
                 </div>
             </div>
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Unidade</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Unidade</label>
                 <select value={editProductUnit} onChange={e => setEditProductUnit(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none">
                     <option value="unidade">Unidade</option>
                     <option value="ml">mL</option>
                     <option value="g">g</option>
@@ -345,11 +345,11 @@ return (
                 </select>
             </div>
             <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium text-pink-600">Capacidade</label>
+                <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Capacidade</label>
                 <input type="text" value={editProductCapacity}
                     onChange={e => setEditProductCapacity(e.target.value)}
                     placeholder="Ex: 15g"
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none"/>
             </div>
             <button onClick={handleSaveEditProduct}
                 className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
@@ -362,35 +362,35 @@ return (
 {/* Modal: New Product - Novo Produto */}
     {showProductModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-            <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-950 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
                 <div className="flex justify-between items-center">
-                    <h2 className="text-base font-medium text-pink-800">Novo Produto</h2>
+                    <h2 className="text-base font-medium text-pink-800 dark:text-pink-300">Novo Produto</h2>
                     <button onClick={() => setShowProductModal(false)} className="text-pink-400 text-lg">X</button>
                 </div>
                     <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Nome</label>
+                    <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Nome</label>
                     <input type="text" value={productName} onChange={e => setProductName(e.target.value)}
                       placeholder="Ex: Gel UV"
-                      className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                      className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none"/>
                 </div>
                 <div className="flex gap-3">
                     <div className="flex flex-col gap-2.5 w-24">
-                    <label className="text-xs font-medium text-pink-600">Qtd. Atual</label>
+                    <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Qtd. Atual</label>
                     <input type="number" value={productQty} onChange={e => setProductQty(e.target.value)}
                       placeholder="3"
-                      className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/> 
+                      className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none w-full"/> 
                 </div>
                 <div className="flex flex-col gap-1.5 w-25">
-                    <label className="text-sm font-medium text-pink-600">Qtd. Mínima</label>
+                    <label className="text-sm font-medium text-pink-600 dark:text-pink-400">Qtd. Mínima</label>
                     <input type="number" value={productMin} onChange={e => setProductMin(e.target.value)}
                         placeholder="1"
-                        className="bg-pink-100 border border-pink-200 rounded-xl px-3 py-3 text-sm text-pink-800 outline-none w-full"/>
+                        className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none w-full"/>
                     </div>
                 </div>
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Unidade</label>
+                    <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Unidade</label>
                     <select value={productUnit} onChange={e => setProductUnit(e.target.value)}
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none">
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none">
                         <option value="unidade">Unidade</option>
                         <option value="ml">mL</option>
                         <option value="g">g</option>
@@ -399,10 +399,10 @@ return (
                     </select>
                 </div>
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-pink-600">Capacidade (Ex: 15g)</label>
+                    <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Capacidade (Ex: 15g)</label>
                     <input type="text" value={productCapacity} onChange={e => setProductCapacity(e.target.value)}
                      placeholder="Ex: 15g"
-                    className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                    className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none"/>
                 </div>
                 <button onClick={handleCreateProduct}
                 className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
@@ -415,16 +415,16 @@ return (
 {/* Modal: New Procedure - Novo Procedimento*/}
         {showProcedureModal && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4 py-6">
-                <div className="bg-white rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
+                <div className="bg-white dark:bg-gray-950 rounded-3xl p-6 w-full max-w-sm flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-base font-medium text-pink-800">Novo Procedimento</h2>
+                        <h2 className="text-base font-medium text-pink-800 dark:text-pink-300">Novo Procedimento</h2>
                         <button onClick={() => setShowProcedureModal(false)} className="text-pink-400 text-lg">X</button>
                     </div>
                     <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-medium text-pink-600">Nome do Procedimento</label>
+                        <label className="text-xs font-medium text-pink-600 dark:text-pink-400">Nome do Procedimento</label>
                         <input type="text" value={procedureName} onChange={e => setProcedureName(e.target.value)}
                             placeholder="Ex: Gel com Molde F1"
-                            className="bg-pink-100 border border-pink-200 rounded-xl px-3.5 py-3 text-sm text-pink-800 outline-none"/>
+                            className="bg-pink-100 dark:bg-gray-800 border border-pink-200 dark:border-gray-700 rounded-xl px-3.5 py-3 text-sm text-pink-800 dark:text-pink-300 outline-none"/>
                     </div>
                     <button onClick={handleCreateProcedure}
                         className="bg-pink-500 text-white rounded-2xl py-3 text-sm font-medium hover:bg-pink-700 transition-colors">
