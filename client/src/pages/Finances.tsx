@@ -296,7 +296,7 @@ function Finances () {
                             <p className="text-sm text-pink-400 text-center py-4">Nemhum atendimento neste Mês</p>
                         ) : (
                             monthServices.map(s => (
-                                <div key={s.id} className="bg-pink-100 dark:bg-gray-800 rounded-2xl px-4 py-3.4 flex justify-between items-center">
+                                <div key={s.id} className="bg-pink-100 dark:bg-gray-800 rounded-2xl px-4 py-3.5 flex justify-between items-center">
                                 <div className="flex flex-col gap-0.5">
                                     <span className="text-sm font-medium text-pink-800 dark:text-pink-300">{s.procedure_name}</span>
                                     {s.client_name && <span className="text-xs text-pink-600 dark:text-pink-400">👤{s.client_name}</span>}
