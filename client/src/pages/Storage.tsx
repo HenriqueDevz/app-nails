@@ -274,7 +274,7 @@ return (
                             ) : (
                                 recipe.map(r => (
                                     <div key={r.id} className="bg-pink-100 dark:bg-gray-800 rounded-xl px-3.5 py-2.5 flex justify-between items-center">
-                                        <span className="text-sm text-pinmk-800">{r.name}</span>
+                                        <span className="text-sm text-pink-800 dark:text-pink-300">{r.name}</span>
                                         <button onClick={() => handleRemoveFromRecipe(r.id)}
                                             className="text-pink-300 hover:text-pink-500 transition-colors">X</button>
                                     </div>
