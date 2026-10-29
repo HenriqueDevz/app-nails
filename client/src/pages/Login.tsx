@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate , useLocation } from 'react-router-dom'
+import { useNavigate , useLocation, Link } from 'react-router-dom'
 import { loginUser } from '../services/api'
 
 function Login() {
@@ -93,9 +93,9 @@ function Login() {
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
 
-          <a href="/register" className="text-center text-xs text-pink-500 underline cursor-pointer">
+          <Link to="/register" className="text-center text-xs text-pink-500 underline cursor-pointer">
             Criar conta
-          </a>
+          </Link>
 
         </div>
       </div>
